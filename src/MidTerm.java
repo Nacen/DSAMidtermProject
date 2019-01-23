@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MidTerm {
     private static Scanner input = new Scanner(System.in);
@@ -8,6 +10,15 @@ public class MidTerm {
     private static HashMap<String, LinkedList<String>> fourthYearHMap = new HashMap<>();
     private static String course;
     private static int year;
+
+    private static boolean IsValidName(String name) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = pattern.matcher(name);
+        if (matcher.find()) {
+            return true;
+        }
+        return false;
+    }
 
     private static void AddNewSection(String sectionName, int yearLevel) {
         // Create your array list here
@@ -163,8 +174,12 @@ public class MidTerm {
         int noOfStudents = input.nextInt();
         input.nextLine();
         for (int i = 0; i < noOfStudents; i++) {
-            System.out.print("Input Student #" + (i + 1) + " Name: ");
-            String studentName = input.nextLine();
+            String studentName;
+            do {
+                System.out.print("Input Student #" + (i + 1) + " Name: ");
+                studentName = input.nextLine();
+            }
+            while(!IsValidName(studentName));
             // add studentName to the list depending on its year level and section
             if (yearLevel == 1)
                 firstYearHMap.get(sectionName).add(studentName);
@@ -308,16 +323,16 @@ public class MidTerm {
             String menu = input.nextLine();
 
             if (menu.equalsIgnoreCase("Section") || menu.equalsIgnoreCase("Section Menu")) {
-                // do something
+                // calls the section menu
                 SectionMenu(year);
                 validMenu = true;
             } else if (menu.equalsIgnoreCase("Year") || menu.equalsIgnoreCase(" Year Level Menu")) {
-                // do something
+                // calls the Year Menu
                 year = YearLevelMenu(course);
                 validMenu = true;
 
             } else if (menu.equalsIgnoreCase("Course") || menu.equalsIgnoreCase("Course Menu")) {
-                // do something
+                // calls the course m   enu
                 course = CourseMenu();
                 validMenu = true;
 
