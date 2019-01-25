@@ -46,9 +46,16 @@ public class MidTerm {
             System.out.println("    A. Information Technology");
             System.out.println("    B. Tourism Management");
             System.out.println("    C. Psychology");
+            System.out.println("    D. Accountancy");
+            System.out.println("    E. Public Administration");
+            System.out.println("    F. Business Administration");
+            System.out.println("    G. Criminology");
             System.out.print("Enter your choice: ");
             courseChoice = input.nextLine();
-            if (!(courseChoice.equalsIgnoreCase("A") || courseChoice.equalsIgnoreCase("B") || courseChoice.equalsIgnoreCase("C"))) {
+            if (!(courseChoice.equalsIgnoreCase("A") || courseChoice.equalsIgnoreCase("B") ||
+                    courseChoice.equalsIgnoreCase("C") ||  courseChoice.equalsIgnoreCase("D") ||
+                    courseChoice.equalsIgnoreCase("E") || courseChoice.equalsIgnoreCase("F") ||
+                    courseChoice.equalsIgnoreCase("G"))) {
                 System.out.println("Wrong input please try again.");
             } else {
                 validInput = true;
@@ -78,6 +85,7 @@ public class MidTerm {
     }
 
     private static int YearLevelMenu(String courseChoice) {
+        System.out.println();
         System.out.println("Welcome to College of " + courseChoice + "!");
         System.out.println("Choose the year level you want to create new section: ");
         System.out.println("    A. 1st year");
@@ -141,7 +149,7 @@ public class MidTerm {
         boolean sectionExist = false;
         String sectionName = "";
         while (!sectionExist) {
-            System.out.print("Enter the section: ");
+            System.out.print("Enter the Section Name: ");
             sectionName = input.nextLine();
             if (firstYearHMap.containsKey(sectionName)) {
                 sectionExist = true;
@@ -230,7 +238,7 @@ public class MidTerm {
                 }
             }
             for (String student : secondYearHMap.get(sectionName)) {
-                System.out.println((i + 1) + student);
+                System.out.println("Student #" + (i + 1) + ":" + student);
                 i++;
             }
         } else if (yearLevel == 3) {
@@ -248,7 +256,7 @@ public class MidTerm {
                 }
             }
             for (String student : thirdYearHMap.get(sectionName)) {
-                System.out.println((i + 1) + student);
+                System.out.println("Student #" + (i + 1) + ":" + student);
                 i++;
             }
         } else if (yearLevel == 4) {
@@ -266,7 +274,7 @@ public class MidTerm {
                 }
             }
             for (String student : fourthYearHMap.get(sectionName)) {
-                System.out.println((i + 1) + student);
+                System.out.println("Student #" + (i + 1) + ":" + student);
                 i++;
             }
         }
@@ -319,11 +327,11 @@ public class MidTerm {
     private static void ReturnMenu() {
         boolean validMenu = false;
         while (!validMenu) {
-            System.out.print("Return to the (Section) Menu| (Year) level Menu| (Course) Menu: ");
+            System.out.print("Return to the (Section) Menu| (Year) level Menu| (Course) Menu| (Exit): ");
             String menu = input.nextLine();
 
             if (menu.equalsIgnoreCase("Section") || menu.equalsIgnoreCase("Section Menu")) {
-                // calls the section menu
+                // calls the Section menu
                 SectionMenu(year);
                 validMenu = true;
             } else if (menu.equalsIgnoreCase("Year") || menu.equalsIgnoreCase(" Year Level Menu")) {
@@ -332,11 +340,11 @@ public class MidTerm {
                 validMenu = true;
 
             } else if (menu.equalsIgnoreCase("Course") || menu.equalsIgnoreCase("Course Menu")) {
-                // calls the course m   enu
+                // calls the Course menu
                 course = CourseMenu();
                 validMenu = true;
 
-            } else if (menu.equalsIgnoreCase("exit")){
+            } else if (menu.equalsIgnoreCase("Exit")){
                 System.exit(0);
             } else
                 System.out.println("Wrong input please try again");
@@ -348,7 +356,8 @@ public class MidTerm {
         course = CourseMenu();
         year = YearLevelMenu(course);
         SectionMenu(year);
-
+        // TODO
+        // Ask if returning to Course Menu will also access Year Level and Students
         while (true) {
             ReturnMenu();
         }
