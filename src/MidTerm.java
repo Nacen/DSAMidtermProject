@@ -21,7 +21,7 @@ public class MidTerm {
     }
 
     private static void AddNewSection(String sectionName, int yearLevel) {
-        // Create your array list here
+        // Creates the Linked List here
         if (yearLevel == 1) {
             LinkedList<String> list = new LinkedList<>();
             firstYearHMap.put(sectionName, list);
@@ -337,13 +337,15 @@ public class MidTerm {
             } else if (menu.equalsIgnoreCase("Year") || menu.equalsIgnoreCase(" Year Level Menu")) {
                 // calls the Year Menu
                 year = YearLevelMenu(course);
+                SectionMenu(year);
                 validMenu = true;
 
             } else if (menu.equalsIgnoreCase("Course") || menu.equalsIgnoreCase("Course Menu")) {
                 // calls the Course menu
                 course = CourseMenu();
+                year = YearLevelMenu(course);
+                SectionMenu(year);
                 validMenu = true;
-
             } else if (menu.equalsIgnoreCase("Exit")){
                 System.exit(0);
             } else
@@ -356,8 +358,6 @@ public class MidTerm {
         course = CourseMenu();
         year = YearLevelMenu(course);
         SectionMenu(year);
-        // TODO
-        // Ask if returning to Course Menu will also access Year Level and Students
         while (true) {
             ReturnMenu();
         }
