@@ -112,6 +112,9 @@ public class MidTerm {
                 System.out.println("Wrong input please try again");
             }
         }
+        String yearChoice = YearChoice(yearLevel);
+        System.out.print("How many section you want to create for " + yearChoice + "?: ");
+        CreateSection(yearLevel, yearChoice);
         return yearLevel;
     }
 
@@ -130,8 +133,6 @@ public class MidTerm {
 
     private static void SectionMenu(int yearLevel) {
         String yearChoice = YearChoice(yearLevel);
-        System.out.print("How many section you want to create for " + yearChoice + "?: ");
-        CreateSection(yearLevel, yearChoice);
         DisplaySection(yearLevel, yearChoice);
 
         System.out.println();
