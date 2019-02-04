@@ -20,10 +20,11 @@ public class MidTerm {
 
     private static void AddNewSection(String sectionName, int yearLevel) {
         // Creates the Linked List here
+        // store the section name as key in the hash map
+        // so we can easily retrieve it using the section name itself
         if (yearLevel == 1) {
             LinkedList<String> list = new LinkedList<>();
             firstYearHMap.put(sectionName, list);
-
         } else if (yearLevel == 2) {
             LinkedList<String> list = new LinkedList<>();
             secondYearHMap.put(sectionName, list);
@@ -60,6 +61,7 @@ public class MidTerm {
                 validInput = true;
             }
         }
+        // passes the letter to choiceCourse Method and gets the equivalent Course
         courseChoice = choiceCourse(courseChoice);
         return courseChoice;
     }
@@ -148,6 +150,7 @@ public class MidTerm {
         }
         boolean sectionExist = false;
         String sectionName = "";
+        // loops over until a valid section is entered
         while (!sectionExist) {
             System.out.print("Enter the Section Name: ");
             sectionName = input.nextLine();
@@ -187,11 +190,16 @@ public class MidTerm {
         System.out.print("Enter the number of students: ");
         // Repeat until next item is an integer
         while (!input.hasNextInt()) {
-            System.out.println("Please try again.");
             input.next(); // Read and discard offending non-int input
-            System.out.print("Please enter an integer: "); // Re-prompt
+            System.out.print("Invalid input please enter a positive integer and try again: "); // Re-prompt
         }
         int noOfStudents = input.nextInt();
+        while (noOfStudents <= 0) {
+            System.out.println("Wrong input please try again"); // Re-prompt
+            System.out.println("Please try again.");
+            System.out.print("Please enter a positive integer number: "); // Re-prompt
+            noOfStudents = input.nextInt();
+        }
         input.nextLine();
         for (int i = 0; i < noOfStudents; i++) {
             String studentName;
@@ -220,6 +228,7 @@ public class MidTerm {
         // iterate over the list of students and print
         int i = 0;
         if (yearLevel == 1) {
+            // if the section is empty ask the user if they want to enter students into the section
             if (firstYearHMap.get(sectionName).isEmpty()) {
                 System.out.println("Student List of " + sectionName + ": ");
                 System.out.println("There are currently no students in this section");
@@ -239,12 +248,14 @@ public class MidTerm {
                         validInput = true;
                 }
             }
+            // prints out the list of students
             System.out.println("Student List of " + sectionName + ": ");
             for (String student : firstYearHMap.get(sectionName)) {
                 System.out.println("Student #" + (i + 1) + ":" + student);
                 i++;
             }
         } else if (yearLevel == 2) {
+            // if the section is empty ask the user if they want to enter students into the section
             if (secondYearHMap.get(sectionName).isEmpty()) {
                 System.out.println("Student List of " + sectionName + ": ");
                 System.out.println("There are currently no students in this section");
@@ -270,6 +281,7 @@ public class MidTerm {
                 i++;
             }
         } else if (yearLevel == 3) {
+            // if the section is empty ask the user if they want to enter students into the section
             if (thirdYearHMap.get(sectionName).isEmpty()) {
                 System.out.println("Student List of " + sectionName + ": ");
                 System.out.println("There are currently no students in this section");
@@ -295,6 +307,7 @@ public class MidTerm {
                 i++;
             }
         } else if (yearLevel == 4) {
+            // if the section is empty ask the user if they want to enter students into the section
             if (fourthYearHMap.get(sectionName).isEmpty()) {
                 System.out.println("Student List of " + sectionName + ": ");
                 System.out.println("There are currently no students in this section");
@@ -324,16 +337,23 @@ public class MidTerm {
     }
 
     private static void CreateSection(int yearLevel, String yearChoice) {
+        int noOfSection = 0;
+
         while (!input.hasNextInt()) {
+            System.out.print("Invalid input please enter a positive integer and try again: "); // Re-prompt
             input.next(); // Read and discard offending non-int input
-            System.out.println("Wrong input please try again"); // Re-prompt
-            System.out.print("How many section you want to create for " + yearChoice + "?: ");
         }
-        int noOfSection = input.nextInt();
+        noOfSection = input.nextInt();
+        while (noOfSection <= 0) {
+            System.out.println("Invalid input please enter a positive integer and try again"); // Re-prompt
+            System.out.print("How many section you want to create for " + yearChoice + "?: ");
+            noOfSection = input.nextInt();
+        }
         input.nextLine();
         for (int i = 0; i < noOfSection; i++) {
             System.out.print("Input Section #" + (i + 1) + " " + "Name: ");
             String sectionInput = input.nextLine();
+            // validation to check if section already exist for that year level
             if (yearLevel == 1) {
                 while (firstYearHMap.containsKey(sectionInput)) {
                     System.out.println("That section already exist for first year level, Please try again");
@@ -368,22 +388,30 @@ public class MidTerm {
         System.out.println();
         System.out.println("The following are all the section/s for " + yearChoice);
         if (yearLevel == 1) {
-            Set<String> sections = firstYearHMap.keySet();
+            // we get the all the sections of first year and sort it
+            SortedSet<String> sections = new TreeSet<>(firstYearHMap.keySet());
+            // loop to print all sections
             for (String section : sections) {
                 System.out.println(section);
             }
         } else if (yearLevel == 2) {
-            Set<String> sections = secondYearHMap.keySet();
+            // we get the all the sections of section year and sort it
+            SortedSet<String> sections = new TreeSet<>(secondYearHMap.keySet());
+            // loop to print all sections
             for (String section : sections) {
                 System.out.println(section);
             }
         } else if (yearLevel == 3) {
-            Set<String> sections = thirdYearHMap.keySet();
+            // we get the all the sections of third year and sort it
+            SortedSet<String> sections = new TreeSet<>(thirdYearHMap.keySet());
+            // loop to print all sections
             for (String section : sections) {
                 System.out.println(section);
             }
         } else if (yearLevel == 4) {
-            Set<String> sections = fourthYearHMap.keySet();
+            // we get the all the sections of fourth year and sort it
+            SortedSet<String> sections = new TreeSet<>(fourthYearHMap.keySet());
+            // loop to print all sections
             for (String section : sections) {
                 System.out.println(section);
             }
@@ -393,7 +421,7 @@ public class MidTerm {
     private static void ReturnMenu() {
         boolean validMenu = false;
         while (!validMenu) {
-            System.out.print("Return to the (Section) Menu| (Year) level Menu| (Course) Menu| (Exit): ");
+            System.out.print("Return to the (Section) Menu | (Year) level Menu | (Course) Menu | (Exit): ");
             String menu = input.nextLine();
 
             if (menu.equalsIgnoreCase("Section") || menu.equalsIgnoreCase("Section Menu")) {
