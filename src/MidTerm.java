@@ -18,6 +18,7 @@ public class MidTerm {
         return matcher.find() && !name.trim().isEmpty();
     }
 
+    // adds new section to the hashmap
     private static void AddNewSection(String sectionName, int yearLevel) {
         // Creates the Linked List here
         // store the section name as key in the hash map
@@ -37,6 +38,7 @@ public class MidTerm {
         }
     }
 
+    // This is the course menu
     private static String CourseMenu() {
         String courseChoice = "";
         boolean validInput = false;
@@ -52,6 +54,7 @@ public class MidTerm {
             System.out.println("    G. Criminology");
             System.out.print("Enter your choice: ");
             courseChoice = input.nextLine();
+            // course input validation
             if (!(courseChoice.equalsIgnoreCase("A") || courseChoice.equalsIgnoreCase("B") ||
                     courseChoice.equalsIgnoreCase("C") || courseChoice.equalsIgnoreCase("D") ||
                     courseChoice.equalsIgnoreCase("E") || courseChoice.equalsIgnoreCase("F") ||
@@ -66,6 +69,7 @@ public class MidTerm {
         return courseChoice;
     }
 
+    // The course equivalent of the letter that was chosen by the user
     private static String choiceCourse(String choice) {
         if (choice.equalsIgnoreCase("A")) {
             return "Information Technology";
@@ -85,6 +89,7 @@ public class MidTerm {
         return "";
     }
 
+    // This is the Year Level Menu
     private static int YearLevelMenu(String courseChoice) {
         System.out.println();
         System.out.println("Welcome to College of " + courseChoice + "!");
@@ -94,6 +99,8 @@ public class MidTerm {
         System.out.println("    C. 3rd year");
         System.out.println("    D. 4th year");
         int yearLevel = 0;
+
+        // input validation of year level
         boolean validInput = false;
         while (!validInput) {
             System.out.print("Enter your choice: ");
@@ -120,6 +127,7 @@ public class MidTerm {
         return yearLevel;
     }
 
+    // The equivalent year level on string based on the year number
     private static String YearChoice(int yearLevel) {
         if (yearLevel == 1) {
             return "1st year";
@@ -133,6 +141,7 @@ public class MidTerm {
         return "year";
     }
 
+    // This is the section menu
     private static void SectionMenu(int yearLevel) {
         String yearChoice = YearChoice(yearLevel);
         DisplaySection(yearLevel, yearChoice);
@@ -166,10 +175,11 @@ public class MidTerm {
                 System.out.println("The section does not exist Please try again.");
             }
         }
-
+        // If Add is chosen
         if (addOrView.equalsIgnoreCase("ADD")) {
             AddStudents(sectionName, yearLevel);
             String display = "";
+            // input validation
             while (!(display.equalsIgnoreCase("Y") || display.equalsIgnoreCase("N"))) {
                 System.out.print("Do you want to display the list of students in " + sectionName + "?(Y/N): ");
                 display = input.nextLine();
@@ -177,15 +187,17 @@ public class MidTerm {
                     System.out.println("Invalid input please try again.");
                 }
             }
+            // ask if the user wants to display the student
             if (display.equalsIgnoreCase("Y")) {
                 DisplayStudents(sectionName, yearLevel);
             } else if (display.equalsIgnoreCase("N"))
                 System.out.println("You've chosen not to display");
-        } else if (addOrView.equalsIgnoreCase("DISPLAY")) {
+        } else if (addOrView.equalsIgnoreCase("DISPLAY")) { // If user input display then display the students
             DisplayStudents(sectionName, yearLevel);
         }
     }
 
+    // This method add students to the section
     private static void AddStudents(String sectionName, int yearLevel) {
         System.out.print("Enter the number of students: ");
         // Repeat until next item is an integer
@@ -194,6 +206,7 @@ public class MidTerm {
             System.out.print("Invalid input please enter a positive integer and try again: "); // Re-prompt
         }
         int noOfStudents = input.nextInt();
+        // validation
         while (noOfStudents <= 0) {
             System.out.println("Wrong input please try again"); // Re-prompt
             System.out.println("Please try again.");
@@ -201,16 +214,20 @@ public class MidTerm {
             noOfStudents = input.nextInt();
         }
         input.nextLine();
+        // Ask the user to input the student names
         for (int i = 0; i < noOfStudents; i++) {
             String studentName;
             do {
                 System.out.print("Input Student #" + (i + 1) + " Name: ");
                 studentName = input.nextLine();
+                // prompt the user until the input given is a valid name
                 if (!IsValidName(studentName))
                     System.out.println("Invalid Name input please try again.");
             }
             while (!IsValidName(studentName));
             // add studentName to the list depending on its year level and section
+
+            // add the student based on the year level and section name given
             if (yearLevel == 1)
                 firstYearHMap.get(sectionName).add(studentName);
             else if (yearLevel == 2)
@@ -224,6 +241,7 @@ public class MidTerm {
 
     }
 
+    // This method is for displaying the students in the section that was entered
     private static void DisplayStudents(String sectionName, int yearLevel) {
         // iterate over the list of students and print
         int i = 0;
@@ -236,11 +254,13 @@ public class MidTerm {
                 while (!validInput) {
                     System.out.print("Would you like to Add Students in this section? Y/N: ");
                     String addChoice = input.nextLine();
+                    // validation
                     while (!(addChoice.equalsIgnoreCase("Y") || addChoice.equalsIgnoreCase("N"))) {
                         System.out.println("Invalid input please try again.");
                         System.out.print("Would you like to Add Students in this section? Y/N: ");
                         addChoice = input.nextLine();
                     }
+                    // if the user choice is Y then add students to the section that was entered
                     if (addChoice.equalsIgnoreCase("Y")) {
                         AddStudents(sectionName, yearLevel);
                         validInput = true;
@@ -336,6 +356,7 @@ public class MidTerm {
         System.out.println();
     }
 
+    // This method is for creating the section
     private static void CreateSection(int yearLevel, String yearChoice) {
         int noOfSection = 0;
 
@@ -350,6 +371,7 @@ public class MidTerm {
             noOfSection = input.nextInt();
         }
         input.nextLine();
+        // prompt the user to input number of sections depending on how many sections they entered.
         for (int i = 0; i < noOfSection; i++) {
             System.out.print("Input Section #" + (i + 1) + " " + "Name: ");
             String sectionInput = input.nextLine();
@@ -384,7 +406,9 @@ public class MidTerm {
         }
     }
 
+    // This method is for displaying the sections
     private static void DisplaySection(int yearLevel, String yearChoice) {
+        // Used a key set to get all keys from the HashMap then loop through it
         System.out.println();
         System.out.println("The following are all the section/s for " + yearChoice);
         if (yearLevel == 1) {
@@ -418,6 +442,7 @@ public class MidTerm {
         }
     }
 
+    // This is the method for the return menu it ask the user where he wants to return of if he wants to exit
     private static void ReturnMenu() {
         boolean validMenu = false;
         while (!validMenu) {
@@ -430,27 +455,29 @@ public class MidTerm {
                 validMenu = true;
             } else if (menu.equalsIgnoreCase("Year") || menu.equalsIgnoreCase(" Year Level Menu")) {
                 // calls the Year Menu
+                // calls the Section Menu also after Year Menu
                 year = YearLevelMenu(course);
                 SectionMenu(year);
                 validMenu = true;
 
             } else if (menu.equalsIgnoreCase("Course") || menu.equalsIgnoreCase("Course Menu")) {
-                // calls the Course menu
+                // calls the Course menu, Year Menu and Section Menu
                 course = CourseMenu();
                 year = YearLevelMenu(course);
                 SectionMenu(year);
                 validMenu = true;
             } else if (menu.equalsIgnoreCase("Exit")) {
-                System.exit(0);
-            } else
+                System.exit(0); // exits the program
+            } else // If the input entered is none of the above print this error message
                 System.out.println("Wrong input please try again");
         }
     }
 
     public static void main(String[] args) {
-        course = CourseMenu();
-        year = YearLevelMenu(course);
-        SectionMenu(year);
+        course = CourseMenu(); // Start the course menu
+        year = YearLevelMenu(course); // Start the year menu
+        SectionMenu(year); // Start the section menu
+        // loop the return menu indefinitely
         while (true) {
             ReturnMenu();
         }
