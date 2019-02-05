@@ -15,7 +15,7 @@ public class MidTerm {
     private static boolean IsValidName(String name) {
         Pattern pattern = Pattern.compile("^[a-zA-Z\\s]+$");
         Matcher matcher = pattern.matcher(name);
-        return matcher.find();
+        return matcher.find() && !name.trim().isEmpty();
     }
 
     private static void AddNewSection(String sectionName, int yearLevel) {
